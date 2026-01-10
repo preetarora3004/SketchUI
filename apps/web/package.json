@@ -11,9 +11,10 @@
     "check-types": "next typegen && tsc --noEmit"
   },
   "dependencies": {
+    "@inngest/agent-kit": "^0.13.2",
     "@workspace/ui": "workspace:*",
-    "@workspace/utils" : "workspace:*",
-    "inngest": "^3.48.1",
+    "@workspace/utils": "workspace:*",
+    "inngest": "^3.49.0",
     "next": "16.0.10",
     "react": "^19.2.0",
     "react-dom": "^19.1.0"
