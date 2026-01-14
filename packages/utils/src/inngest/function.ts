@@ -6,7 +6,7 @@ dotenv.config();
 
 console.log("hey")
 
-console.log(process?.env.Gemini);
+console.log(process.env.GEMINI_API_KEY);
 
 export const helloWorld = inngest.createFunction(
   { id: "hello-world" },
@@ -24,19 +24,14 @@ export const testAgent = inngest.createFunction(
   async ({ event, step }) => {
 
     const agent = createAgent({
-      name: "Greet-Agent",
-      description: "Greets everyone warmly",
-      system: "You are a greeting machine",
+      name: "Web Designer",
+      description: "This AI is professional web developer that can build amazing websites with unique designs",
+      system: "You are a professional web developer that can design beautifull and unique website designs using next js and its framework",
       model: gemini({
         model: "gemini-2.5-flash",
-        apiKey : process.env.Gemini
+        apiKey: "AIzaSyDMZIwpVx0PHAoR9g8MfLTWRuhcXDGKlLo"
       })
     })
 
-    const { output } = await agent.run("Greet me gemini")
-
-    return {
-      message : output
-    }
   }
 );

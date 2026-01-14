@@ -11,13 +11,16 @@
     "check-types": "next typegen && tsc --noEmit"
   },
   "dependencies": {
+    "@e2b/code-interpreter": "^2.3.3",
     "@inngest/agent-kit": "^0.13.2",
     "@workspace/ui": "workspace:*",
     "@workspace/utils": "workspace:*",
+    "dotenv": "^17.2.3",
     "inngest": "^3.49.0",
     "next": "16.0.10",
     "react": "^19.2.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "zod": "^4.3.5"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^15.4.6",
