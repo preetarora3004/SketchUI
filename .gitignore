@@ -29,10 +29,12 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 .env
-generated
 
 # turbo
 .turbo
 
 # ui
 dist/
+
+#db
+generated

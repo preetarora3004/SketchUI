@@ -12,5 +12,5 @@ RUN npx create-next-app@16.0.10 --yes
 RUN npx --yes shadecn@latest init --yes -b -neutral --force
 RUN npx --yes shadecn@latest add --all --yes
 
-RUN mv /home/usr/nextjs-app/* /home/usr rm -rf /home/usr/nextjs-app
+RUN mv /home/user/nextjs-app/* /home/usr rm -rf /home/user/nextjs-app
 
