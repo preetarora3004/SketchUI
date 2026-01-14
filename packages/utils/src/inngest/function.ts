@@ -4,10 +4,6 @@ import dotenv from "dotenv"
 
 dotenv.config();
 
-console.log("hey")
-
-console.log(process.env.GEMINI_API_KEY);
-
 export const helloWorld = inngest.createFunction(
   { id: "hello-world" },
   { event: "test/hello.world" },
@@ -29,7 +25,7 @@ export const testAgent = inngest.createFunction(
       system: "You are a professional web developer that can design beautifull and unique website designs using next js and its framework",
       model: gemini({
         model: "gemini-2.5-flash",
-        apiKey: "AIzaSyDMZIwpVx0PHAoR9g8MfLTWRuhcXDGKlLo"
+        apiKey: process.env.GEMINI_API_KEY
       })
     })
 
