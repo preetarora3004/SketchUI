@@ -2,6 +2,7 @@
 
 import {invoke} from "@workspace/utils/inngest_send"
 
+
 export default function Page(){
 
     const invokeAI = async()=>{
