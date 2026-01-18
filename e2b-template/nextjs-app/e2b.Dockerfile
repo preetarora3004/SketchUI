@@ -7,10 +7,10 @@ RUN chmod +x /compile_page.sh
 
 WORKDIR /home/user/nextjs-app
 
-RUN npx create-next-app@16.0.10 --yes
+RUN npx create-next-app@16.0.10 app --yes
 
 RUN npx --yes shadcn@latest init --yes -b neutral --force
 RUN npx --yes shadcn@latest add --all --yes
 
-RUN mv /home/user/nextjs-app/* /home/user && rm -rf /home/user/nextjs-app
+RUN mv /home/user/nextjs-app/app/* /home/user && rm -rf /home/user/nextjs-app
 

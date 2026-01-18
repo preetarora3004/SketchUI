@@ -1,5 +1,5 @@
 # This is a config for E2B sandbox template.
-# You can use template ID (fovv7bdh484so1vckm1q) or template name (SketchUI) to create a sandbox:
+# You can use template ID (xof9yoc0oayv5tqh6g80) or template name (SketchUI) to create a sandbox:
 
 # Python SDK
 # from e2b import Sandbox, AsyncSandbox
@@ -11,6 +11,7 @@
 # const sandbox = await Sandbox.create('SketchUI')
 
 team_id = "9b8424bc-6396-432d-8695-e9868cdcc79b"
+start_cmd = "/compile_page.sh"
 dockerfile = "e2b.Dockerfile"
 template_name = "SketchUI"
-template_id = "fovv7bdh484so1vckm1q"
+template_id = "xof9yoc0oayv5tqh6g80"

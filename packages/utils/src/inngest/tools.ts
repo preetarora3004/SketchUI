@@ -15,7 +15,7 @@ export const envCreation = createTool({
         const buffer = { onStdOut: "", onStdErr: "" };
 
         try{
-            const sbx = await Sandbox.create();
+            const sbx = await Sandbox.create("SketchUI");
             const results = await sbx.commands.run(command, {
 
                 onStdout : (data : any) => {
