@@ -1,0 +1,11 @@
+import { createNetwork, createState } from "@inngest/agent-kit";
+import { designerAgent } from "@workspace/utils/src/inngest/agent"
+
+export interface NetworkState {
+    sandboxId : string | null;
+}
+
+export const network = createNetwork({
+    name: "Coding Network",
+    agents: [designerAgent]
+});

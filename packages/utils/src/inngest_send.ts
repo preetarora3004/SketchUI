@@ -4,9 +4,9 @@ import { inngest } from "./inngest/client";
 
 export const invoke = async()=> {
     await inngest.send({
-        name : "test/hello.world",
+        name : "test/ai-hello",
         data : {
-            email : "Preet"
+            prompt : "Create a simple landing page"
         }
     })
 }

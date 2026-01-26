@@ -1,17 +1,12 @@
 import { inngest } from "./client";
-import { gemini, createAgent } from "@inngest/agent-kit";
 import dotenv from "dotenv"
+import { designerAgent } from "@workspace/utils/src/inngest/agent";
+import { network } from "@workspace/utils/src/inngest/network"
+import { sandboxId } from "@workspace/utils/src/sandboxId"
+import type { NetworkState } from "@workspace/utils/src/inngest/network"
+import { createState } from "@inngest/agent-kit";
 
 dotenv.config();
-
-export const helloWorld = inngest.createFunction(
-  { id: "hello-world" },
-  { event: "test/hello.world" },
-  async ({ event, step }) => {
-    await step.sleep("wait-a-moment", "1s");
-    return { message: `Hello ${event.data.email}!` };
-  },
-);
 
 export const testAgent = inngest.createFunction(
   { id: "hello-from-AI" },
@@ -19,15 +14,26 @@ export const testAgent = inngest.createFunction(
 
   async ({ event, step }) => {
 
-    const agent = createAgent({
-      name: "Web Designer",
-      description: "This AI is professional web developer that can build amazing websites with unique designs",
-      system: "You are a professional web developer that can design beautifull and unique website designs using next js and its framework",
-      model: gemini({
-        model: "gemini-2.5-flash",
-        apiKey: process.env.GEMINI_API_KEY
-      })
+    const sandbox_Id = await step.run("get-id", () => {
+      sandboxId
+    });
+
+    const codingAgent = await step.run("get-agent", () => {
+      designerAgent
+    });
+
+    const getNetwork = await step.run("intialise-network", () => {
+      network
+    });
+
+    const state = createState<NetworkState>({
+      sandboxId: sandbox_Id
     })
 
+    const output = await network.run(event.data.prompt, { state });
+
+    return {
+      output
+    }
   }
 );
