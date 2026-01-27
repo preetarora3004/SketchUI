@@ -1,10 +1,8 @@
 import { inngest } from "./client";
 import dotenv from "dotenv"
 import { designerAgent } from "@workspace/utils/src/inngest/agent";
-import { network } from "@workspace/utils/src/inngest/network"
+import { network, state_d } from "@workspace/utils/src/inngest/network"
 import { sandboxId } from "@workspace/utils/src/sandboxId"
-import type { NetworkState } from "@workspace/utils/src/inngest/network"
-import { createState } from "@inngest/agent-kit";
 
 dotenv.config();
 
@@ -26,9 +24,9 @@ export const testAgent = inngest.createFunction(
       network
     });
 
-    const state = createState<NetworkState>({
-      sandboxId: sandbox_Id
-    })
+    if(!sandbox_Id) return "Sandbox not found";
+
+    const state = state_d(sandbox_Id);
 
     const output = await network.run(event.data.prompt, { state });
 

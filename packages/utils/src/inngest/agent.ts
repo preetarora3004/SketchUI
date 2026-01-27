@@ -8,7 +8,7 @@ export const designerAgent = createAgent({
     system: "You are a professional web developer that can design beautifull and unique website designs using next js and its framework",
     model: gemini({
         model: "gemini-2.5-flash",
-        apiKey: "AIzaSyDgnNABAT4JI-FzioiFN0s18wFIIj6xAYk"
+        apiKey: process.env.GEMINI_API_KEY
     }),
     tools: [commandLine, createOrUpdateFile]
 })
