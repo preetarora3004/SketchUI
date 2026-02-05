@@ -1,5 +1,5 @@
 import { createNetwork, createState } from "@inngest/agent-kit";
-import { designerAgent } from "@workspace/utils/src/inngest/agent"
+import { designerAgent } from "../inngest/agent"
 
 interface NetworkState {
     sandboxId: string | null;
@@ -15,5 +15,15 @@ export const state_d = (sandboxId: string | any): Record<string, any> => {
 
 export const network = createNetwork({
     name: "Coding Network",
-    agents: [designerAgent]
+    agents: [designerAgent],
+    maxIter : 4,
+    router: ({ network }) => {
+
+        const solution = network.state.data.summary;
+        if (solution) {
+            return;
+        }
+
+        return designerAgent;
+    }
 });

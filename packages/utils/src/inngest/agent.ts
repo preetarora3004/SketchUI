@@ -1,14 +1,15 @@
-import { createAgent, gemini } from "@inngest/agent-kit";
-import { commandLine, createOrUpdateFile } from "@workspace/utils/src/inngest/tools";
+import { createAgent, gemini,  } from "@inngest/agent-kit";
+import { terminal, createOrUpdateFiles, readFiles } from "../inngest/tools";
+import { PROMPT } from "../prompt";
 
 export const designerAgent = createAgent({
 
-    name: "Web Designer",
+    name: "Web-Designer",
     description: "This AI is professional web developer that can build amazing websites with unique designs",
-    system: "You are a professional web developer that can design beautifull and unique website designs using next js and its framework",
+    system: PROMPT,
     model: gemini({
-        model: "gemini-2.5-flash",
+        model: "gemini-2.5-flash-lite",
         apiKey: process.env.GEMINI_API_KEY
     }),
-    tools: [commandLine, createOrUpdateFile]
+    tools: [terminal, createOrUpdateFiles, readFiles]
 })

@@ -1,37 +1,46 @@
 import { inngest } from "./client";
 import dotenv from "dotenv"
-import { designerAgent } from "@workspace/utils/src/inngest/agent";
-import { network, state_d } from "@workspace/utils/src/inngest/network"
-import { sandboxId } from "@workspace/utils/src/sandboxId"
+import { designerAgent } from "../inngest/agent";
+import { network, state_d } from "../inngest/network"
+import { sandboxId } from "../sandboxId"
+import { sandboxUrl } from "../sandboxUrl";
 
 dotenv.config();
 
-export const testAgent = inngest.createFunction(
+export const codingAgent = inngest.createFunction(
   { id: "hello-from-AI" },
   { event: "test/ai-hello" },
 
   async ({ event, step }) => {
 
     const sandbox_Id = await step.run("get-id", () => {
-      sandboxId
+      return sandboxId();
     });
 
     const codingAgent = await step.run("get-agent", () => {
-      designerAgent
+      return designerAgent;
+
     });
 
     const getNetwork = await step.run("intialise-network", () => {
-      network
+      return network;
     });
 
-    if(!sandbox_Id) return "Sandbox not found";
+    if (!sandbox_Id) return "Sandbox not found";
 
     const state = state_d(sandbox_Id);
 
     const output = await network.run(event.data.prompt, { state });
 
+    const sandbox_Url = await step.run("get-url", () => {
+      return sandboxUrl(sandbox_Id);
+    })
+
     return {
-      output
+      url: sandbox_Url,
+      title: "untilted",
+      files: output.state.data.files,
+      summary: output.state.data.summary
     }
   }
 );

@@ -2,6 +2,7 @@ import Sandbox from "@e2b/code-interpreter";
 
 export const sandboxId = async ()=>{
 
-    const sandbox = await Sandbox.create("SketchUI", {apiKey : process.env.E2B_ACCESS_TOKEN});
+    const apiKey = process.env.E2B_API_KEY;
+    const sandbox = await Sandbox.create("SketchUI", {apiKey : apiKey, timeoutMs : 600_000});
     return sandbox.sandboxId;
 }
