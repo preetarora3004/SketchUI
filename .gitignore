@@ -38,3 +38,5 @@ dist/
 
 #db
 packages/db/generated/
+
+e2b-template/nextjs-app/e2b.toml
