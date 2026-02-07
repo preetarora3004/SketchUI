@@ -1,3 +1,4 @@
+import "@workspace/ui/styles/styles.css"
 import "./globals.css";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";

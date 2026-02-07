@@ -4,7 +4,8 @@
     "outDir": "dist",
     "baseUrl" : ".",
     "paths" : {
-      "@workspace/ui/*" : ["./src/*.ts"]
+      "@workspace/ui/*" : ["./src/*.ts"],
+      "@workspace/ui/styles/*.css" : [".src/styles/styles.css"]
     }	
   },
   "include": ["src"],

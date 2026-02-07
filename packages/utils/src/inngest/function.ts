@@ -19,7 +19,6 @@ export const codingAgent = inngest.createFunction(
 
     const codingAgent = await step.run("get-agent", () => {
       return designerAgent;
-
     });
 
     const getNetwork = await step.run("intialise-network", () => {

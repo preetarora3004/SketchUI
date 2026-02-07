@@ -18,3 +18,9 @@ model User {
   username String @unique
   password String
 }
+
+model sandbox {
+  id String @unique @default(cuid())
+  name String
+  sbxId String
+}

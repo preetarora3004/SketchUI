@@ -16,7 +16,7 @@ export const terminal = createTool({
             const buffer = { onStdOut: "", onStdErr: "" };
 
             try {
-                const apiKey = process.env.E2B_API_KEY ;
+                const apiKey = process.env.E2B_API_KEY;
                 const sbx = await Sandbox.connect(network.state.data.sandboxId, {
                     apiKey: apiKey
                 })
@@ -59,7 +59,7 @@ export const createOrUpdateFiles = createTool({
         return await step?.run("createUpdate", async () => {
             try {
                 const updatedFiles = network.state.data.files || {}
-                const apiKey = process.env.E2B_API_KEY ;
+                const apiKey = process.env.E2B_API_KEY;
                 const sbx = await Sandbox.connect(network.state.data.sandboxId, {
                     apiKey: apiKey
                 });
@@ -94,7 +94,7 @@ export const readFiles = createTool({
     handler: async ({ files }, { network, step }) => {
 
         return await step?.run("readFiles", async () => {
-            const apiKey = process.env.E2B_API_KEY ;
+            const apiKey = process.env.E2B_API_KEY;
             const sandbox = await Sandbox.connect(network.state.data.sandboxId, {
                     apiKey: apiKey
                 });

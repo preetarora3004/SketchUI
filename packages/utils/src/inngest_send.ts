@@ -2,11 +2,11 @@
 
 import { inngest } from "./inngest/client";
 
-export const invoke = async()=> {
+export const invoke = async(prompt : String)=> {
     await inngest.send({
         name : "test/ai-hello",
         data : {
-            prompt : "Create a simple landing page"
+            prompt : prompt
         }
     })
 }
