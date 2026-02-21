@@ -40,3 +40,5 @@ dist/
 packages/db/generated/
 
 e2b-template/nextjs-app/e2b.toml
+
+./apps/web/.env

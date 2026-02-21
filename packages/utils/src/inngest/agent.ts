@@ -1,8 +1,9 @@
 import { createAgent, gemini,  } from "@inngest/agent-kit";
 import { terminal, createOrUpdateFiles, readFiles } from "../inngest/tools";
 import { PROMPT } from "../prompt";
+import type { NetworkState } from "./network";
 
-export const designerAgent = createAgent({
+export const designerAgent = createAgent<NetworkState>({
 
     name: "Web-Designer",
     description: "This AI is professional web developer that can build amazing websites with unique designs",

@@ -1,6 +1,5 @@
 {
-  "name": "db",
-  "module": "index.ts",
+  "name": "@workspace/db",
   "type": "module",
   "private": true,
   "devDependencies": {

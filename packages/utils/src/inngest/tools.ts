@@ -55,10 +55,16 @@ export const createOrUpdateFiles = createTool({
     }),
 
     handler: async ({ files }, { network, step }) => {
+    
+        if (!network?.state?.data?.sandboxId) {
+            const msg = "No sandboxId set on network.state.data; cannot write files";
+            console.error(msg);
+            return msg;
+        }
 
-        return await step?.run("createUpdate", async () => {
-            try {
-                const updatedFiles = network.state.data.files || {}
+        try {
+            const newFiles = await step?.run("createOrUpdate", async () => {
+                const updatedFiles: Record<string, string> = network.state.data.files ?? {};
                 const apiKey = process.env.E2B_API_KEY;
                 const sbx = await Sandbox.connect(network.state.data.sandboxId, {
                     apiKey: apiKey
@@ -70,17 +76,25 @@ export const createOrUpdateFiles = createTool({
                     console.log(`File written: ${file.path}`);
                 }
 
-                await new Promise(resolve => setTimeout(resolve, 500));
+                if(network.state.data.files === updatedFiles) {console.log("True")};
 
-                network.state.data.files = updatedFiles
-                return `Updated files are ${JSON.stringify(updatedFiles)}`;
-            }
-            catch (err) {
-                console.error("File update error:", err);
-                return `error is ${err}`;
-            }
-        })
+                return updatedFiles;
+            });
 
+            if (newFiles && typeof newFiles === "object") {
+                network.state.data.files = newFiles as Record<string, string>;
+                console.log("createOrUpdateFiles: persisted files:", Object.keys(network.state.data.files));
+                return "Files updated";
+            }
+
+            const errMsg = typeof newFiles === "string" ? newFiles : "Unknown error updating files";
+            console.error("createOrUpdateFiles failed:", errMsg);
+            return errMsg;
+        }
+        catch (err) {
+            console.error("createOrUpdateFiles exception:", err);
+            return `error is ${err}`;
+        }
     }
 })
 

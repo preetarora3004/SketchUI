@@ -6,7 +6,7 @@ const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 export const client =
   globalForPrisma.prisma ||
   new PrismaClient({
-    adapter: new PrismaPg({connectionString : process.env.DATABASE_URL}),
+    adapter: new PrismaPg({connectionString : "postgresql://neondb_owner:npg_UZXaTju78MPe@ep-empty-cloud-a80clr2o.eastus2.azure.neon.tech/neondb?sslmode=require&channel_binding=require"}),
   });
 
-if (Bun.env.NODE_ENV !== "production") globalForPrisma.prisma = client;
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = client;

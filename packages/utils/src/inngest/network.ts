@@ -1,22 +1,16 @@
-import { createNetwork, createState } from "@inngest/agent-kit";
+import { Agent, createNetwork, gemini } from "@inngest/agent-kit";
 import { designerAgent } from "../inngest/agent"
 
-interface NetworkState {
+export interface NetworkState {
     sandboxId: string | null;
+    files: Record<string, string> | null | undefined;
+    summary: string | null;
 }
 
-export const state_d = (sandboxId: string | any): Record<string, any> => {
-
-    const state = createState<NetworkState>({
-        sandboxId
-    })
-    return state;
-}
-
-export const network = createNetwork({
+export const networkAssign = (codingAgent : any) => createNetwork<NetworkState>({
     name: "Coding Network",
-    agents: [designerAgent],
-    maxIter : 4,
+    agents: [codingAgent],
+    maxIter: 2,
     router: ({ network }) => {
 
         const solution = network.state.data.summary;

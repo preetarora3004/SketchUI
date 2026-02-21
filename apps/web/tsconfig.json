@@ -10,7 +10,9 @@
     "paths" : {
 	    "@workspace/ui/*" : ["../../packages/ui/src/*"],
       "@workspace/utils/*" : ["../../packages/utils/src/*.ts"],
-      "@workspace/ui/styles" : ["../../packages/ui/src/styles/*.css"]
+      "@workspace/ui/styles" : ["../../packages/ui/src/styles/*.css"],
+      "@workspace/db/*" : ["../../packages/db/src/*"],
+      "@workspace/types/*" : ["../../packages/types/*"]
     }
   },
   "include": [
@@ -18,7 +20,8 @@
     "**/*.tsx",
     "next-env.d.ts",
     "next.config.ts",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "../../packages/types/**/*.d.ts"
   ],
   "exclude": ["node_modules"]
 }

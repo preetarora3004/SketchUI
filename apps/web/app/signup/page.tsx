@@ -29,7 +29,7 @@ export default function SignUpPage() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
-    // Simulate API call
+  
     setTimeout(() => {
       setLoading(false)
       alert('Sign up successful!')

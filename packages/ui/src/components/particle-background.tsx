@@ -12,7 +12,6 @@ export function ParticleBackground() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    // Set canvas size
     const resizeCanvas = () => {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
@@ -20,7 +19,6 @@ export function ParticleBackground() {
     resizeCanvas()
     window.addEventListener('resize', resizeCanvas)
 
-    // Particle system
     const particles: {
       x: number
       y: number
@@ -30,7 +28,6 @@ export function ParticleBackground() {
       opacity: number
     }[] = []
 
-    // Create particles
     const particleCount = Math.min(50, Math.max(20, (canvas.width * canvas.height) / 15000))
     for (let i = 0; i < particleCount; i++) {
       particles.push({
@@ -43,19 +40,16 @@ export function ParticleBackground() {
       })
     }
 
-    // Animation loop
     const animate = () => {
-      // Clear canvas with fade effect
+
       ctx.fillStyle = 'rgba(5, 5, 5, 0.05)'
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-      // Update and draw particles
       particles.forEach((particle) => {
-        // Update position
+        
         particle.x += particle.vx
         particle.y += particle.vy
 
-        // Bounce off edges
         if (particle.x - particle.radius < 0 || particle.x + particle.radius > canvas.width) {
           particle.vx *= -1
         }
@@ -63,22 +57,18 @@ export function ParticleBackground() {
           particle.vy *= -1
         }
 
-        // Keep particles in bounds
         particle.x = Math.max(particle.radius, Math.min(canvas.width - particle.radius, particle.x))
         particle.y = Math.max(particle.radius, Math.min(canvas.height - particle.radius, particle.y))
 
-        // Draw particle
         ctx.fillStyle = `rgba(255, 255, 255, ${particle.opacity})`
         ctx.beginPath()
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2)
         ctx.fill()
 
-        // Fade opacity slightly
         particle.opacity += (Math.random() - 0.5) * 0.05
         particle.opacity = Math.max(0.1, Math.min(0.8, particle.opacity))
       })
 
-      // Draw connections between nearby particles
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const particleI = particles[i]

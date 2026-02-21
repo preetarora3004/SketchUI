@@ -7,11 +7,13 @@
     "moduleDetection": "force",
     "allowJs": true,
     "baseUrl": ".",
+    "paths": {
+      "@workspace/db/*" : ["./src/*"]
+    },
 
     // Bundler mode
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
     "noEmit": true,
     "esModuleInterop": true,
 

@@ -1,9 +1,10 @@
 import { inngest } from "./client";
 import dotenv from "dotenv"
 import { designerAgent } from "../inngest/agent";
-import { network, state_d } from "../inngest/network"
+import { networkAssign } from "../inngest/network"
 import { sandboxId } from "../sandboxId"
 import { sandboxUrl } from "../sandboxUrl";
+import { client } from "@workspace/db/index";
 
 dotenv.config();
 
@@ -17,19 +18,13 @@ export const codingAgent = inngest.createFunction(
       return sandboxId();
     });
 
-    const codingAgent = await step.run("get-agent", () => {
-      return designerAgent;
-    });
-
-    const getNetwork = await step.run("intialise-network", () => {
-      return network;
-    });
-
     if (!sandbox_Id) return "Sandbox not found";
 
-    const state = state_d(sandbox_Id);
-
-    const output = await network.run(event.data.prompt, { state });
+    const network = networkAssign(designerAgent);
+    
+    network.state.data.sandboxId = sandbox_Id;
+  
+    const output = await network.run(event.data.prompt);
 
     const sandbox_Url = await step.run("get-url", () => {
       return sandboxUrl(sandbox_Id);

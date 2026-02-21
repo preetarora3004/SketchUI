@@ -1,18 +1,31 @@
 'use client'
 
-import Link from 'next/link'
 import { useState } from 'react'
 import { Button } from '@workspace/ui/components/ui/button'
 import { ParticleBackground } from '@workspace/ui/components/particle-background'
 import { SandboxPreview } from '@workspace/ui/components/sandbox-preview'
+import { invoke } from "@workspace/utils/inngest_send"
 
 export default function Page() {
-  const [isSandboxOpen, setIsSandboxOpen] = useState(false)
-  const [description, setDescription] = useState('')
+  const [isSandboxOpen, setIsSandboxOpen] = useState(false);
+  const [description, setDescription] = useState('');
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     if (description.trim()) {
-      setIsSandboxOpen(true)
+
+      const response = await fetch("/api/project", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title: description })
+      })
+
+      if (!response) return null;
+      const project = await response.json();
+
+      invoke(description, project.id);
+      setIsSandboxOpen(true);
     }
   }
 
@@ -20,7 +33,7 @@ export default function Page() {
     <div className="relative min-h-screen w-full overflow-hidden bg-background">
       <ParticleBackground />
 
-      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 pt-20">
+      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 ">
         <div className="max-w-2xl">
 
           <h1 className="mb-3 text-center text-5xl font-light tracking-tight text-foreground">
@@ -49,19 +62,21 @@ export default function Page() {
             />
           </div>
 
-          <div className="mb-12 ml-2 flex items-center justify-between">
-            <p className="text-sm text-muted-foreground">{description.length} characters</p>
+          <div className="mb-8 flex items-center justify-between">
+            <p className="text-sm text-muted-foreground ml-2">{description.length} characters</p>
             <Button
               size="lg"
               onClick={handleGenerate}
               disabled={!description.trim()}
-              className="bg-primary px-7 py-2.5 text-primary-foreground hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed text-black bg-[#FAFAFA] mr-2 rounded-sm"
+              className="relative overflow-hidden px-8 py-3 rounded-sm mr-2 bg-[#FAFAFA] text-black transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed after:absolute after:inset-0
+              after:bg-black/0 after:transition after:duration-300 hover:after:bg-black/10 before:absolute before:top-0 before:left-[-100%] before:w-full before:h-full before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:skew-x-12 before:transition-all before:duration-500
+              hover:before:left-[100%]"
             >
               Generate
             </Button>
           </div>
 
-          <div className="text-left mb-15">
+          <div className="text-left mb-7">
             <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Tips for better results
             </p>
@@ -80,14 +95,21 @@ export default function Page() {
               </li>
             </ul>
           </div>
+
         </div>
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 z-20 border-t border-border bg-background/50 backdrop-blur-sm">
-        <div className="flex items-center justify-center px-4 py-6 text-sm text-muted-foreground">
-          © 2025 SketchUI. All rights reserved.
+        <div className="flex items-center justify-center px-4 py-4 text-sm text-muted-foreground">
+          © 2026 SketchUI. All rights reserved.
         </div>
       </div>
+
+      <SandboxPreview
+        isOpen={isSandboxOpen}
+        onClose={() => setIsSandboxOpen(false)}
+        description={description}
+      />
     </div>
   )
 }
