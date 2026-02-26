@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Button } from '@workspace/ui/components/ui/button'
 import { ParticleBackground } from '@workspace/ui/components/particle-background'
 import { SandboxPreview } from '@workspace/ui/components/sandbox-preview'
-import { invoke } from "@workspace/utils/inngest_send"
+import { generateResponse } from "@workspace/utils/inngest_send"
 
 export default function Page() {
   const [isSandboxOpen, setIsSandboxOpen] = useState(false);
@@ -23,8 +23,9 @@ export default function Page() {
 
       if (!response) return null;
       const project = await response.json();
+      const userId = "123" //
 
-      invoke(description, project.id);
+      generateResponse(description, project.id, userId );
       setIsSandboxOpen(true);
     }
   }

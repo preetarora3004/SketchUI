@@ -2,12 +2,13 @@
 
 import { inngest } from "./inngest/client";
 
-export const invoke = async(prompt : string, projectId : string)=> {
+export const generateResponse = async(prompt : string, projectId : string, userId : string)=> {
     await inngest.send({
         name : "test/ai-hello",
         data : {
             prompt,
-            projectId 
+            projectId,
+            userId
         }
     })
 }

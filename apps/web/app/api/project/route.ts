@@ -1,6 +1,5 @@
 import { client } from "@workspace/db/index"
 import { NextRequest, NextResponse } from "next/server";
-import jwt, { JwtPayload } from "jsonwebtoken";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@workspace/utils/authconfig"
 
@@ -10,9 +9,9 @@ export async function POST(req: NextRequest) {
     const { title } = body;
     const session = await getServerSession(authConfig);
 
-    if(!session || !session.user) return NextResponse.json({
-        message : "User not authorized"
-    }, { status : 401 });
+    if (!session || !session.user) return NextResponse.json({
+        message: "User not authorized"
+    }, { status: 401 });
 
     try {
         const project = await client.project.create({
